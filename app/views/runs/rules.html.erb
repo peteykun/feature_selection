@@ -1,0 +1,45 @@
+<h1>Viewing Rules</h1>
+<hr>
+
+<% if notice %>
+<div class="alert alert-success"><%= notice %></div>
+<% end %>
+
+<p>
+  <strong>Run Name:</strong>
+  <%= @run.name %>
+</p>
+
+<p>
+  <strong>Rules Generated:</strong>
+</p>
+
+<table class="table table-bordered table-striped table-hover centered">
+  <thead>
+    <% @reduct_set.each do |serial| %>
+      <th>Attribute #<%= serial %></th>
+    <% end %>
+    <th>Decision value</th>
+  </thead>
+
+  <tbody>
+    <% @rules_hash.each do |rule| %>
+    <tr>
+      <% @reduct_set.each do |serial| %>
+        <td>
+          <% if rule['values'][serial] != nil %>
+            <%= rule['values'][serial] %>
+          <% else %>
+            <div class="dont_care">Don't care</div>
+          <% end %>
+        </td>
+      <% end %>
+      <td><%= rule['decision_value'] %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Back to list of Runs', runs_path, class: 'btn btn-default' %>

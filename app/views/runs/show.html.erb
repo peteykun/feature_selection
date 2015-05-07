@@ -1,0 +1,102 @@
+<h1>Viewing Run</h1>
+<hr>
+
+<% if notice %>
+<div class="alert alert-success"><%= notice %></div>
+<% end %>
+
+<p>
+  <strong>Run Name:</strong>
+  <%= @run.name %>
+</p>
+
+<p>
+  <strong>Reduct Set:</strong>
+</p>
+
+<table class="table table-bordered table-striped table-hover">
+  <thead>
+    <th>Attribute #</th>
+    <th>Attribute Name</th>
+  </thead>
+
+  <tbody>
+    <% @reduct_set.each do |serial| %>
+    <tr>
+      <td><%= serial %></td>
+      <td>Unknown</td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <strong>Rules generated:</strong>
+  <%= link_to 'Click here to view the rules', run_rules_path(@run) %>
+</p>
+
+<% if false %>
+<!--
+<p>
+  <strong>Tested:</strong>
+  <% if @run.tested %>&check;<% else %>&#10007;<% end %>
+</p>
+
+<p>
+  <strong>Success:</strong>
+  <% if @run.success %>&check;<% else %>&#10007;<% end %>
+</p>
+
+<p>
+  <strong>Submitted:</strong>
+  <%= @run.timestamp.strftime('%b %e, %l:%M:%S %p') %>
+</p>
+
+<hr>
+
+<p>
+  <strong>Statement:</strong>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%= raw @run.problem.statement %>
+    </div>
+  </div>
+</p>
+
+<p>
+  <strong>Sample input:</strong>
+  <pre><%= @run.problem.sample_input %></pre>
+</p>
+
+<p>
+  <strong>Sample output:</strong>
+  <pre><%= @run.problem.sample_output %></pre>
+</p>
+
+<hr>
+
+<p>
+  <strong>Source code:</strong>
+  <pre class="prettyprint"><%= @run.code %></pre>
+</p>
+
+<% if @run.tested and not (@run.comments.nil? or @run.comments.empty?) %>
+
+<br>
+<p>
+  <strong>Moderator's comments:</strong>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <%= raw @run.comments %>
+    </div>
+  </div>
+</p>
+
+<% end %>
+-->
+<% end %>
+
+
+<br>
+
+<%= link_to 'Back to list of Runs', runs_path, class: 'btn btn-default' %>

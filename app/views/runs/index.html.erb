@@ -1,0 +1,46 @@
+<h1>List of Runs</h1>
+<hr>
+
+<% if params[:notice] != nil %>
+<div class="alert alert-danger" role="alert"><%= params[:notice] %></div>
+<% end %>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Submitted</th>
+      <th colspan="3" width="40%">Controls</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @runs.each do |run| %>
+      <tr>
+        <td><%= run.id %></td>
+        <td><%= run.name %></td>
+        <td><%= run.created_at.strftime('%b %e, %l:%M:%S %p') %></td>
+        <td>
+          <%= link_to run do %>
+          <span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span> View Run
+          <% end %>
+        </td>
+        <td>
+          <%= link_to run_rules_path(run) do %>
+          <span class="glyphicon glyphicon-list" aria-hidden="true"></span> List Rules
+          <% end %>
+        </td>
+        <td>
+          <%= link_to run_test_path(run) do %>
+          <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Test Sample
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%#= will_paginate @problems, renderer: BootstrapPagination::Rails %>
+<br>
+<br>

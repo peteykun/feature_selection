@@ -1,0 +1,66 @@
+<h1>Viewing Run</h1>
+<hr>
+
+<% if notice %>
+<div class="alert alert-success"><%= notice %></div>
+<% end %>
+
+<p>
+  <strong>Run Name:</strong>
+  <%= @run.name %>
+</p>
+
+<br>
+
+<p>
+  <strong>Test Sample:</strong>
+</p>
+
+<textarea class="form-control" rows="10"></textarea><br><br>
+
+<p>
+  <strong>Diagnosed Decision Value:</strong>
+</p>
+
+<input type="text" class="form-control" readonly></input>
+
+<br>
+
+<button class="btn btn-success" onclick="predict()">Predict Decision Value</button><br><br>
+
+<br>
+
+<script type="text/javascript">
+  tree = <%= raw @run.rules %>;
+
+  predict = function() {
+    attributes = $('textarea').val().split(" ");
+    match_found = false;
+
+    for(j = 0; j < tree.length && match_found === false; j++)
+    {
+      node = tree[j];
+
+      $match = true;
+      $keys = Object.keys(node.values);
+
+      for(i = 0; i < $keys.length; i++)
+      {
+        if(node.values[$keys[i]] != attributes[$keys[i]])
+          $match = false;
+      }
+
+      if($match) {
+        $('input').val(node.decision_value);
+        match_found = true;
+      }
+
+    }
+
+    if(!match_found) {
+      $('input').val("No match found");
+    }
+  }
+</script>
+
+<%= link_to 'Back to list of Runs', runs_path, class: 'btn btn-default' %>
